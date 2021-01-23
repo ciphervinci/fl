@@ -1,0 +1,130 @@
+#! /bin/bash
+
+#Purpose: For file modification and information
+#Version: 0.1
+#Author: Rishikesh
+
+# START #
+
+#--help
+if [ "$1" == "--help" ] ; then
+	echo ""
+    echo "-----HELP-----"
+    echo "Usage ./fl <OPTION> <YOURFILENAME>"
+    echo "Enter only one option at a time"
+    echo ""
+    echo ""
+    echo "-i or --info         :  Provide all info of the file"
+    echo "-s or --size         :  Provide size of the file in Bytes"
+    echo "-p or --permissions  :  Provide permissions of the file"
+    echo "-o or --owner        :  Provide the name of owner for the file"
+    echo "-i or --info         :  Provide all info of the file"
+    echo "-m or --last-modified:  Provide the date and time of last modification of the file"
+    echo "-r or --remove       :  Remove the file"
+    echo "-rn or --rename      :  Rename the file"
+    echo "-rd or --read        :  Read the content of the file"
+    echo "-mv or --move        :  Move the file to a new location"
+    echo "-cp or --copy        :  Copy the file to a new location"
+    echo "--version            :  Provide the version of the fl tool"
+    echo "--about              :  Provide the information of fl tool"
+    echo ""
+    exit 0
+fi
+
+
+#--version
+if [ "$1" == "--version" ] ; then
+    echo "0.1"
+    exit 0
+fi
+
+
+#file -s/--size
+if [ "$1" == "-s" ] || [ "$1" == "--size" ]; then
+    echo "File Size(B): `ls -lrt $2 | awk '{print $5}'`"
+    exit 0
+fi
+
+
+#file -p/--permissions
+if [ "$1" == "-p" ] || [ "$1" == "--permissions" ]; then
+    echo "Permissions: `ls -ld $2 | awk '{print $1}'`"
+    exit 0
+fi
+
+
+#file -o/--owner
+if [ "$1" == "-o" ] || [ "$1" == "--owner" ]; then
+    echo "Owner: `stat -c '%U' $2`"
+    exit 0
+fi
+
+
+#file -m/--last-modified
+if [ "$1" == "-m" ] || [ "$1" == "--last-modified" ]; then
+    echo "Last Modified: `stat $2 | grep "Modify" | sed 's/Modify://g'`"
+    exit 0
+fi
+
+
+#file -i/--info
+if [ "$1" == "-i" ] || [ "$1" == "--info" ]; then
+    stat $2
+    exit 0
+fi
+
+
+#file -r/--remove
+if [ "$1" == "-r" ] || [ "$1" == "--remove" ]; then
+    rm $2
+    exit 0
+fi
+
+
+#file -rn/--rename
+if [ "$1" == "-rn" ] || [ "$1" == "--rename" ]; then
+	echo "Enter new name: "
+	read newname
+    mv $2 $newname
+    exit 0
+fi
+
+
+#file -rd/--read
+if [ "$1" == "-rd" ] || [ "$1" == "--read" ]; then
+    cat $2
+    exit 0
+fi
+
+
+#file -mv/--move
+if [ "$1" == "-mv" ] || [ "$1" == "--move" ]; then
+    echo "Enter new location: (like /opt/ or ~/Desktop/)"
+    read newmvlocation
+    mv $2 $newmvlocation
+    exit 0
+fi
+
+
+#file --about
+if [ "$1" == "--about" ]; then
+    echo "-----Welcome to fl-----"
+    echo "Thanks for using my mini file tool"
+    echo "Author : Rishikesh"
+    exit 0
+fi
+
+
+#file -cp/--copy
+if [ "$1" == "-cp" ] || [ "$1" == "--copy" ]; then
+    echo "Enter location: (like /opt/ or ~/Desktop/)"
+    read newcplocation
+    cp $2 $newcplocation
+    exit 0
+else
+	echo "Ops Wrong Option. Enter './fl --help'"
+fi
+
+
+
+# END #
