@@ -18,7 +18,6 @@ if [ "$1" == "--help" ] ; then
     echo "-s or --size         :  Provide size of the file in Bytes"
     echo "-p or --permissions  :  Provide permissions of the file"
     echo "-o or --owner        :  Provide the name of owner for the file"
-    echo "-i or --info         :  Provide all info of the file"
     echo "-m or --last-modified:  Provide the date and time of last modification of the file"
     echo "-r or --remove       :  Remove the file"
     echo "-rn or --rename      :  Rename the file"
